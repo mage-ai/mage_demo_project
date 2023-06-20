@@ -1,0 +1,8 @@
+config:
+  database: development
+  host: demo-do-user-13087369-0.b.db.ondigitalocean.com
+  password: AVNS_pwHe0fANLH1XmGZYDAJ
+  port: 25060
+  schema: data_integrations
+  username: mager
+source: postgresql

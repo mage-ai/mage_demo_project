@@ -1,0 +1,8 @@
+version: 0.1.1
+default:
+  POSTGRES_DBNAME: development
+  POSTGRES_USER: mager
+  POSTGRES_PASSWORD: AVNS_pwHe0fANLH1XmGZYDAJ
+  POSTGRES_HOST: demo-do-user-13087369-0.b.db.ondigitalocean.com
+  POSTGRES_PORT: 25060
+  POSTGRES_SCHEMA: analytics

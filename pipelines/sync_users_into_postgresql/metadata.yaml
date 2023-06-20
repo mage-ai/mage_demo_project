@@ -1,0 +1,77 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - hide_pii_data
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: yaml
+  name: postgresql cloud
+  retry_config: null
+  status: updated
+  type: data_loader
+  upstream_blocks: []
+  uuid: postgresql_cloud
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - postgresql_cloud_destination
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: hide pii data
+  retry_config: null
+  status: updated
+  type: transformer
+  upstream_blocks:
+  - postgresql_cloud
+  uuid: hide_pii_data
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    file_path: null
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: yaml
+  name: postgresql_cloud_destination
+  retry_config: null
+  status: updated
+  type: data_exporter
+  upstream_blocks:
+  - hide_pii_data
+  uuid: postgresql_cloud_destination
+callbacks:
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: trigger batch pipeline
+  retry_config: null
+  status: not_executed
+  type: callback
+  upstream_blocks:
+  - postgresql_cloud_destination
+  uuid: trigger_batch_pipeline
+conditionals: []
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: sync users into postgresql
+spark_config: {}
+type: integration
+updated_at: '2023-06-20 18:30:54'
+uuid: sync_users_into_postgresql
+widgets: []

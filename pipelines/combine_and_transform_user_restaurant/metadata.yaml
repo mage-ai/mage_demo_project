@@ -1,0 +1,272 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - distribution_of_restaurant_ratings
+  - cuisine_distribution
+  - most_frequent_values_for_load_api_data
+  - summary_overview_for_load_api_data
+  - feature_profiles_for_load_api_data
+  - clean_column_names
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load api data
+  retry_config: null
+  status: executed
+  type: data_loader
+  upstream_blocks: []
+  uuid: load_api_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks:
+  - export_combined_data_to_postgresql_cloud
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: clean column names
+  retry_config: null
+  status: executed
+  type: transformer
+  upstream_blocks:
+  - load_api_data
+  uuid: clean_column_names
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    export_write_policy: replace
+    limit: ''
+    use_raw_sql: false
+  downstream_blocks:
+  - emails_delivered_each_year
+  - number_of_emails
+  - users_with_number_of_emails
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: load users
+  retry_config: null
+  status: executed
+  type: data_loader
+  upstream_blocks: []
+  uuid: load_users
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    export_write_policy: replace
+  downstream_blocks:
+  - users_with_number_of_emails
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: number of emails
+  retry_config: null
+  status: executed
+  type: transformer
+  upstream_blocks:
+  - load_users
+  uuid: number_of_emails
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    export_write_policy: replace
+    limit: ''
+    use_raw_sql: false
+  downstream_blocks:
+  - export_combined_data_to_postgresql_cloud
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: users with number of emails
+  retry_config: null
+  status: executed
+  type: transformer
+  upstream_blocks:
+  - load_users
+  - number_of_emails
+  uuid: users_with_number_of_emails
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: postgres
+    data_provider_profile: default
+    export_write_policy: replace
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export combined data to postgresql cloud
+  retry_config: null
+  status: executed
+  type: data_exporter
+  upstream_blocks:
+  - clean_column_names
+  - users_with_number_of_emails
+  uuid: export_combined_data_to_postgresql_cloud
+callbacks: []
+conditionals: []
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions:
+  great_expectations:
+    blocks:
+    - all_upstream_blocks_executed: true
+      color: null
+      configuration: {}
+      downstream_blocks: []
+      executor_config: null
+      executor_type: local_python
+      has_callback: false
+      language: python
+      name: minimum required rows
+      retry_config: null
+      status: not_executed
+      type: extension
+      upstream_blocks:
+      - load_api_data
+      uuid: minimum_required_rows
+name: combine and transform user restaurant
+spark_config: {}
+type: python
+updated_at: '2023-06-20 18:29:53'
+uuid: combine_and_transform_user_restaurant
+widgets:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    buckets: 10
+    chart_type: histogram
+    group_by:
+    - rating
+    x: x
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: distribution of restaurant ratings
+  retry_config: null
+  status: executed
+  type: chart
+  upstream_blocks:
+  - load_api_data
+  uuid: distribution_of_restaurant_ratings
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    buckets: 7
+    chart_type: pie chart
+    group_by:
+    - cuisine
+    x: x
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: cuisine distribution
+  retry_config: null
+  status: executed
+  type: chart
+  upstream_blocks:
+  - load_api_data
+  uuid: cuisine_distribution
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    chart_type: table
+    height: 3000
+    index: column_index
+    x: columns
+    y: rows
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: most frequent values for load_api_data
+  retry_config: null
+  status: executed
+  type: chart
+  upstream_blocks:
+  - load_api_data
+  uuid: most_frequent_values_for_load_api_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    chart_type: table
+    height: 3000
+    index: stats
+    x: headers
+    y: rows
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: summary overview for load_api_data
+  retry_config: null
+  status: executed
+  type: chart
+  upstream_blocks:
+  - load_api_data
+  uuid: summary_overview_for_load_api_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    chart_type: table
+    height: 3000
+    index: stats
+    x: columns
+    y: rows
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: feature profiles for load_api_data
+  retry_config: null
+  status: executed
+  type: chart
+  upstream_blocks:
+  - load_api_data
+  uuid: feature_profiles_for_load_api_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    chart_type: time series line chart
+    group_by:
+    - delivered_at
+    metrics:
+    - aggregation: count
+      column: id_email
+    time_interval: year
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: emails delivered each year
+  retry_config: null
+  status: executed
+  type: chart
+  upstream_blocks:
+  - load_users
+  uuid: emails_delivered_each_year
