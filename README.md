@@ -6,3 +6,7 @@
 1. When you start Mage, be sure to reference the project name `mage_demo_project`.
 
     For example, `mage start mage_demo_project`
+
+# Support
+
+Please join the [community Slack channel](https://www.mage.ai/chat) for real-time support.
